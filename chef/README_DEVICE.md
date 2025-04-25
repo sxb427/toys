@@ -1,0 +1,1 @@
+../connectedhomeip/examples/shell/README_DEVICE.md
