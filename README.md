@@ -11,8 +11,59 @@ source scripts/bootstrap.sh
 source scripts/activate.sh
 ```
 3. In the same terminal session, build the chef app. E.g. -
+   * Only Linux is currently supported *
 ```
 cd ../chef
 ./chef.py -br -d rootnode_airpurifier_73a6fe2651 -t linux
+```
+For the following error -
+```
+Error: <some_path>/src/app/zap-templates/zcl/zcl.json does not exists or is not a file.
+```
+Fix the path in the ZAP file
+```
+gedit chef/devices/<device_name>.zap
+```
+Change -
+```
+  "package": [
+    {
+      "pathRelativity": "relativeToZap",
+      "path": "../../../src/app/zap-templates/zcl/zcl.json",
+      "type": "zcl-properties",
+      "category": "matter",
+      "version": 1,
+      "description": "Matter SDK ZCL data"
+    },
+    {
+      "pathRelativity": "relativeToZap",
+      "path": "../../../src/app/zap-templates/app-templates.json",
+      "type": "gen-templates-json",
+      "category": "matter",
+      "version": "chip-v1"
+    }
+  ],
+```
+
+to -
+
+```
+  "package": [
+    {
+      "pathRelativity": "relativeToZap",
+      "path": "../../connectedhomeip/src/app/zap-templates/zcl/zcl.json",
+      "type": "zcl-properties",
+      "category": "matter",
+      "version": 1,
+      "description": "Matter SDK ZCL data"
+    },
+    {
+      "pathRelativity": "relativeToZap",
+      "path": "../../connectedhomeip/src/app/zap-templates/app-templates.json",
+      "type": "gen-templates-json",
+      "category": "matter",
+      "version": "chip-v1"
+    }
+  ],
 ```
 
